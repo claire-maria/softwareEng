@@ -83,7 +83,7 @@ public class LCA {
 		return false;
 	}
 
-	class Graph {
+	static class Graph {
 		int V; // No. of vertices
 
 		List<Integer> adjListArray[];
@@ -102,9 +102,10 @@ public class LCA {
 			}
 		}
 
-		// Utility function to add edge
-		public void addEdge(int src, int dest) {
+		// Utility  function to add edge
 
+		public void addEdge(int src, int dest) {
+  
 			this.adjListArray[src].add(dest);
 
 		}
@@ -112,6 +113,8 @@ public class LCA {
 	}
 
 	public static void main(String[] args) {
+
+
 
 		// Create a graph given in the above diagram
 		Graph graph = new Graph(6);
@@ -121,7 +124,7 @@ public class LCA {
 		graph.addEdge(4, 1);
 		graph.addEdge(2, 3);
 		graph.addEdge(3, 1);
-		System.out.println(graph);
+		System.out.println(graph.toString());
 
 	}
 
