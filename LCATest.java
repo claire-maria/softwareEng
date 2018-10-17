@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import junit.framework.Assert;
 
 class LCATest {
-
+//test graph LCA functions
 	 @Test
 	    public void test1() {
 		 	LCA tree = new LCA();
