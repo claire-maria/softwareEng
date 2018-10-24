@@ -1,6 +1,3 @@
-
-// Java Program for Lowest Common Ancestor in a Binary Tree 
-// A O(n) solution to find LCA of two given values n1 and n2 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -81,51 +78,6 @@ public class LCA {
 		path.remove(path.size() - 1);
 
 		return false;
-	}
-
-	static class Graph {
-		int V; // No. of vertices
-
-		List<Integer> adjListArray[];
-
-		public Graph(int V) {
-
-			this.V = V;
-
-			@SuppressWarnings("unchecked")
-			List<Integer> adjListArray[] = new LinkedList[V];
-
-			this.adjListArray = adjListArray;
-
-			for (int i = 0; i < V; i++) {
-				adjListArray[i] = new LinkedList<>();
-			}
-		}
-
-		// Utility  function to add edge
-
-		public void addEdge(int src, int dest) {
-  
-			this.adjListArray[src].add(dest);
-
-		}
-
-	}
-
-	public static void main(String[] args) {
-
-
-
-		// Create a graph given in the above diagram
-		Graph graph = new Graph(6);
-		graph.addEdge(5, 2);
-		graph.addEdge(5, 0);
-		graph.addEdge(4, 0);
-		graph.addEdge(4, 1);
-		graph.addEdge(2, 3);
-		graph.addEdge(3, 1);
-		System.out.println(graph.toString());
-
 	}
 
 }
