@@ -156,6 +156,12 @@ class LCATest {
 			// V4 is not adj to any V this is correct
 		}
 	}
+	//Test root == null
+	@Test
+	public void rootTest() {
+		LCA tree = new LCA();
+		assertEquals(tree.root, null);
+	}
 
 	@Test
 	public void testGraph2() {
@@ -181,5 +187,10 @@ class LCATest {
 			// v5 is not adj to any V
 			// correct
 		}
+	}
+	//test if graphs are acyclic
+	@Test 
+	public void testIsCyclic(){
+		
 	}
 }
