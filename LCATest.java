@@ -189,8 +189,17 @@ class LCATest {
 		}
 	}
 	//test if graphs are acyclic
+	//First test is an acyclic graph, result should be false
 	@Test 
 	public void testIsCyclic(){
+		Graph graph = new Graph(5);
+		graph.addEdge(0, 2);
+		graph.addEdge(1, 2);
+		graph.addEdge(1, 3);
+		graph.addEdge(2, 4);
+		graph.addEdge(3, 4);
+		System.out.println(graph.isCyclic());
+		assertEquals(graph.isCyclic(), false);
 		
 	}
 }
