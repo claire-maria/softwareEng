@@ -1,3 +1,5 @@
+package cs3016;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -148,7 +150,7 @@ class LCATest {
 		assertEquals(5, graph.adj.size());
 		// If size is correct I can assume it built
 		for (int i = 0; i < graph.adj.size(); i++) {
-			System.out.println(graph.adj.get(i));
+			System.out.println(graph.adj.size());
 			// V0 adj v2
 			// V1 adj V2 and V3
 			// V2 adj V4
@@ -178,7 +180,7 @@ class LCATest {
 		assertEquals(6, graph.adj.size());
 		// If size is correct I can assume it built
 		for (int i = 0; i < graph.adj.size(); i++) {
-			System.out.println(graph.adj.get(i));
+			System.out.println(graph.adj.size());
 			// V0 adj v2 and V1
 			// V1 adj V2 and V3
 			// V2 adj V4
@@ -192,14 +194,57 @@ class LCATest {
 	//First test is an acyclic graph, result should be false
 	@Test 
 	public void testIsCyclic(){
-		Graph graph = new Graph(5);
+		Graph graph = new Graph(3);
 		graph.addEdge(0, 2);
 		graph.addEdge(1, 2);
-		graph.addEdge(1, 3);
-		graph.addEdge(2, 4);
-		graph.addEdge(3, 4);
 		System.out.println(graph.isCyclic());
 		assertEquals(graph.isCyclic(), false);
 		
 	}
+	//second test is a cyclic graph, result should be true
+	@Test
+	public void testIsCyclic2() {
+		Graph graph2 = new Graph(4); 
+	    graph2.addEdge(0, 1); 
+	    graph2.addEdge(0, 2); 
+	    graph2.addEdge(1, 2); 
+	    graph2.addEdge(2, 0); 
+	    graph2.addEdge(2, 3); 
+	    graph2.addEdge(3, 3); 
+		System.out.println(graph2.isCyclic());
+		assertEquals(graph2.isCyclic(), true);
+		
+	}
+	
+	 @Test
+	    public void testConstructor() {
+	        DAG dag;
+
+	        dag = new DAG(5);
+	        assertEquals("0: \n1: \n2: \n3: \n4: \n", dag.toString());
+
+	        dag = new DAG(0);
+	        assertEquals("", dag.toString());
+
+	        dag = new DAG(1);
+	        assertEquals("0: \n", dag.toString());
+	    }
+	 //Prints the following therefore working
+	 //0: 1 
+	 //1: 2 3 
+	 //2: 
+	 //3: 
+
+	 @Test
+	    public void testAddEdge() {
+	        DAG dag;
+
+	        dag = new DAG(4);
+	        dag.addEdge(0, 1);
+	        dag.addEdge(1, 2);
+	        dag.addEdge(1, 3);
+	        System.out.println(dag.toString());
+	    }
+
+	
 }
