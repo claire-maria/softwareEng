@@ -1,3 +1,4 @@
+package cs3016;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ class Graph {
 		for (int i = 0; i < V; i++)
 			adj.add(new LinkedList<>());
 	}
+
 	private boolean isCyclicUtil(int i, boolean[] visited, boolean[] recStack) {
 
 		// Mark the current node as visited and
@@ -42,14 +44,14 @@ class Graph {
 		adj.get(source).add(dest);
 	}
 
-	private boolean isCyclic() {
+	boolean isCyclic() {
 
 		// Mark all the vertices as not visited and
 		// not part of recursion stack
 		boolean[] visited = new boolean[V];
 		boolean[] recStack = new boolean[V];
 
-		//rescurse graph
+		//Recurse graph
 		for (int i = 0; i < V; i++)
 			if (isCyclicUtil(i, visited, recStack))
 				return true;
@@ -57,3 +59,4 @@ class Graph {
 		return false;
 	}
 }
+

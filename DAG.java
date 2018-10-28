@@ -11,12 +11,6 @@ public class DAG {
 
 	private final ArrayList<Integer>[] adjTable; // Adjacency table for all adjacency lists.
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param v
-	 *            - Number of vertices.
-	 */
 	@SuppressWarnings("unchecked")
 	public DAG(int v) {
 		// Create table of adjacency lists for v vertices.
@@ -28,11 +22,6 @@ public class DAG {
 
 	/**
 	 * Add a directed edge from v->w.
-	 *
-	 * @param v
-	 *            - Origin vertex.
-	 * @param w
-	 *            - Destination vertex.
 	 */
 	public void addEdge(int v, int w) {
 		if (v >= 0 && v < adjTable.length && w >= 0 && w < adjTable.length)
@@ -41,16 +30,6 @@ public class DAG {
 			System.out.println("Edge " + v + "->" + w + " ignored due to non-existent vertex.");
 	}
 
-	/**
-	 * Add edge v->w to the adjacency table if it does not exist otherwise.
-	 *
-	 * @param adjTable
-	 *            - The adjacency table to insert the new edge.
-	 * @param v
-	 *            - Origin vertex.
-	 * @param w
-	 *            - Destination vertex.
-	 */
 	private void addEdge(ArrayList<Integer>[] adjTable, int v, int w) {
 		ArrayList<Integer> adjList = adjTable[v]; // Adjacency list for vertex v.
 		if (!adjList.contains(w)) {
@@ -106,4 +85,89 @@ public class DAG {
 		return false;
 	}
 
+	public ArrayList<Integer> lowestCommonAncestors(int v1, int v2) {
+		ArrayList<Integer> lowestCommonAncestors = new ArrayList<Integer>();
+		if (v1 == v2) {
+			lowestCommonAncestors.add(v1);
+			return lowestCommonAncestors;
+		}
+		if (v1 < 0 || v1 >= adjTable.length || v2 < 0 || v2 >= adjTable.length) {
+			return null;
+		}
+
+		// Reverse adjacency table to find parents of all vertices.
+		ArrayList<Integer>[] parentTable = reverse(adjTable);
+
+		boolean[] v1Ancestors = new boolean[adjTable.length];
+		Arrays.fill(v1Ancestors, false);
+
+		v1Ancestors[v1] = true;
+		for (int v : parentTable[v1]) {
+			markAncestors(parentTable, v1Ancestors, v);
+		}
+
+		// Populate ArrayList with lowest common ancestors.
+		Queue<Integer> currentLevel = new LinkedList<Integer>();
+		Queue<Integer> nextLevel = new LinkedList<Integer>();
+		for (int v : parentTable[v2])
+			currentLevel.add(v);
+
+		while (!currentLevel.isEmpty()) {
+			while (!currentLevel.isEmpty()) {
+				int v = currentLevel.remove();
+
+				if (v1Ancestors[v])
+					lowestCommonAncestors.add(v);
+
+				if (lowestCommonAncestors.isEmpty()) {
+					for (int w : parentTable[v])
+						nextLevel.add(w);
+				}
+			}
+			currentLevel = nextLevel;
+			nextLevel = new LinkedList<Integer>();
+		}
+
+		return lowestCommonAncestors;
+	}
+
+	// dfs
+	void markAncestors(ArrayList<Integer>[] parentTable, boolean[] v1Ancestors, int vertex) {
+		v1Ancestors[vertex] = true;
+		for (int v : parentTable[vertex]) {
+			markAncestors(parentTable, v1Ancestors, v);
+		}
+	}
+
+	// reverses adj table to get ancestor
+	private ArrayList<Integer>[] reverse(ArrayList<Integer>[] adjTable) {
+		ArrayList<Integer>[] reversed = (ArrayList<Integer>[]) new ArrayList[adjTable.length];
+		for (int i = 0; i < reversed.length; i++)
+			reversed[i] = new ArrayList<Integer>();
+
+		// For each v->w, add w->v to reversed adjacency table.
+		for (int v = 0; v < adjTable.length; v++) {
+			for (int w : adjTable[v])
+				addEdge(reversed, w, v);
+		}
+		return reversed;
+	}
+
+	/*
+	 * return adj table as a string
+	 */
+	public String toString() {
+		return toString(adjTable);
+	}
+
+	private String toString(ArrayList<Integer>[] adjTable) {
+		String string = "";
+		for (int v = 0; v < adjTable.length; v++) {
+			string += v + ": ";
+			for (int vertex : adjTable[v]) // Add each vertex in the current adjacency list.
+				string += vertex + " ";
+			string += "\n";
+		}
+		return string;
+	}
 }

@@ -2,6 +2,8 @@ package cs3016;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class LCATest {
@@ -158,7 +160,8 @@ class LCATest {
 			// V4 is not adj to any V this is correct
 		}
 	}
-	//Test root == null
+
+	// Test root == null
 	@Test
 	public void rootTest() {
 		LCA tree = new LCA();
@@ -190,61 +193,140 @@ class LCATest {
 			// correct
 		}
 	}
-	//test if graphs are acyclic
-	//First test is an acyclic graph, result should be false
-	@Test 
-	public void testIsCyclic(){
+
+	// test if graphs are acyclic
+	// First test is an acyclic graph, result should be false
+	@Test
+	public void testIsCyclic() {
 		Graph graph = new Graph(3);
 		graph.addEdge(0, 2);
 		graph.addEdge(1, 2);
 		System.out.println(graph.isCyclic());
 		assertEquals(graph.isCyclic(), false);
-		
+
 	}
-	//second test is a cyclic graph, result should be true
+
+	// second test is a cyclic graph, result should be true
 	@Test
 	public void testIsCyclic2() {
-		Graph graph2 = new Graph(4); 
-	    graph2.addEdge(0, 1); 
-	    graph2.addEdge(0, 2); 
-	    graph2.addEdge(1, 2); 
-	    graph2.addEdge(2, 0); 
-	    graph2.addEdge(2, 3); 
-	    graph2.addEdge(3, 3); 
+		Graph graph2 = new Graph(4);
+		graph2.addEdge(0, 1);
+		graph2.addEdge(0, 2);
+		graph2.addEdge(1, 2);
+		graph2.addEdge(2, 0);
+		graph2.addEdge(2, 3);
+		graph2.addEdge(3, 3);
 		System.out.println(graph2.isCyclic());
 		assertEquals(graph2.isCyclic(), true);
-		
+
 	}
-	
-	 @Test
-	    public void testConstructor() {
-	        DAG dag;
 
-	        dag = new DAG(5);
-	        assertEquals("0: \n1: \n2: \n3: \n4: \n", dag.toString());
+	// res should be true
+	@Test
+	public void testIsCyclic3() {
+		Graph graph2 = new Graph(5);
+		graph2.addEdge(0, 1);
+		graph2.addEdge(0, 2);
+		graph2.addEdge(0, 3);
+		graph2.addEdge(1, 0);
+		graph2.addEdge(1, 2);
+		graph2.addEdge(2, 1);
+		graph2.addEdge(2, 0);
+		graph2.addEdge(3, 0);
+		graph2.addEdge(3, 4);
+		System.out.println(graph2.isCyclic());
+		assertEquals(graph2.isCyclic(), true);
 
-	        dag = new DAG(0);
-	        assertEquals("", dag.toString());
+	}
 
-	        dag = new DAG(1);
-	        assertEquals("0: \n", dag.toString());
-	    }
-	 //Prints the following therefore working
-	 //0: 1 
-	 //1: 2 3 
-	 //2: 
-	 //3: 
+	@Test
+	public void testConstructor() {
+		DAG dag;
 
-	 @Test
-	    public void testAddEdge() {
-	        DAG dag;
+		dag = new DAG(5);
+		assertEquals("0: \n1: \n2: \n3: \n4: \n", dag.toString());
 
-	        dag = new DAG(4);
-	        dag.addEdge(0, 1);
-	        dag.addEdge(1, 2);
-	        dag.addEdge(1, 3);
-	        System.out.println(dag.toString());
-	    }
+		dag = new DAG(0);
+		assertEquals("", dag.toString());
 
-	
+		dag = new DAG(1);
+		assertEquals("0: \n", dag.toString());
+	}
+	// Prints the following therefore working
+	// 0: 1
+	// 1: 2 3
+	// 2:
+	// 3:
+
+	@Test
+	public void testAddEdge() {
+		DAG dag;
+
+		dag = new DAG(4);
+		dag.addEdge(0, 1);
+		dag.addEdge(1, 2);
+		dag.addEdge(1, 3);
+		System.out.println(dag.toString());
+	}
+
+	@Test
+	public void testAddEdge2() {
+		DAG dag;
+
+		dag = new DAG(4);
+		dag.addEdge(0, 5);
+		dag.addEdge(-1, 2);
+		dag.addEdge(0, -6);
+		dag.addEdge(20, 20);
+		System.out.println(dag.toString());
+	}
+
+	@Test
+	public void testAddEdge3() {
+		DAG dag;
+
+		ArrayList<Integer>[] adj;
+		dag = new DAG(5);
+		dag.addEdge(0, 1);
+		dag.addEdge(0, 2);
+		dag.addEdge(0, 3);
+		dag.addEdge(1, 0);
+		dag.addEdge(1, 2);
+		dag.addEdge(2, 1);
+		dag.addEdge(2, 0);
+		dag.addEdge(3, 0);
+		dag.addEdge(3, 4);
+		System.out.println(dag.toString());
+	}
+	@Test
+	public void testAddEdge4() {
+		DAG dag;
+
+		ArrayList<Integer>[] adj;
+		dag = new DAG(5);
+		dag.addEdge(0, 1);
+		dag.addEdge(0, 1);
+		dag.addEdge(0, 3);
+		dag.addEdge(1, 20);
+		dag.addEdge(1, 2);
+		dag.addEdge(20, 1);
+		dag.addEdge(2, 0);
+		dag.addEdge(3, 0);
+		dag.addEdge(3, 4);
+		
+		System.out.println(dag.toString());
+	}
+	@Test
+	public void testLCA1() {
+		DAG dag;
+		ArrayList<Integer>[] parentTable = null;
+		boolean[] v1Ancestors = null;
+		dag = new DAG(4);
+		dag.addEdge(0, 1);
+		dag.addEdge(1, 2);
+		dag.addEdge(1, 3);
+		
+		System.out.println(dag.lowestCommonAncestors(0, 1));
+	}
+
 }
