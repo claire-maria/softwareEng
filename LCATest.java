@@ -321,12 +321,40 @@ class LCATest {
 		DAG dag;
 		ArrayList<Integer>[] parentTable = null;
 		boolean[] v1Ancestors = null;
-		dag = new DAG(4);
+		dag = new DAG(10);
 		dag.addEdge(0, 1);
 		dag.addEdge(1, 2);
 		dag.addEdge(1, 3);
+		dag.addEdge(5, 7);
+		dag.addEdge(9, 4);
+		dag.addEdge(6, 7);
+		dag.addEdge(3, 8);
+		dag.addEdge(7, 8);
+//		dag.addEdge(-5, -7);
+//		dag.addEdge(-1, 70);
+//		dag.addEdge(40, -7);
+//		dag.addEdge(0, 0);
+		System.out.println(dag.lowestCommonAncestors(-5, -7));
+		System.out.println(dag.lowestCommonAncestors(-1, 70));
+		System.out.println(dag.lowestCommonAncestors(40, -7));
+		
+		
+		System.out.println(dag.lowestCommonAncestors(0, 0));
 		
 		System.out.println(dag.lowestCommonAncestors(0, 1));
+		System.out.println(dag.lowestCommonAncestors(1, 2));
+		System.out.println(dag.lowestCommonAncestors(1, 3));
+		System.out.println(dag.lowestCommonAncestors(0, 2));
+		System.out.println(dag.lowestCommonAncestors(0, 3));
+		System.out.println(dag.lowestCommonAncestors(5, 7));
+		System.out.println(dag.lowestCommonAncestors(7, 8));
+		System.out.println(dag.lowestCommonAncestors(8, 4));
+		System.out.println(dag.lowestCommonAncestors(9, 1));
+		System.out.println(dag.lowestCommonAncestors(0, 9));
+		System.out.println(dag.lowestCommonAncestors(6, 1));
+		System.out.println(dag.lowestCommonAncestors(2, 8));
+		System.out.println(dag.lowestCommonAncestors(8, 1));
+		System.out.println(dag.lowestCommonAncestors(9, 4));
 	}
 
 }
