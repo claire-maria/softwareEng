@@ -52,7 +52,7 @@ public class LCA {
 
 	// Finds the path from root node to given root of the tree, Stores the
 	// path in a vector path[], returns true if path exists otherwise false
-	private boolean findPath(Node root, int n, List<Integer> path) {
+	boolean findPath(Node root, int n, List<Integer> path) {
 		// base case
 		if (root == null) {
 			return false;

@@ -1,8 +1,10 @@
 package cs3016;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.assertNotEquals;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -137,6 +139,22 @@ class LCATest {
 		tree.root.right.right = new Node(7);
 		System.out.println("LCA(6, 7): " + tree.findLCA(6, 7));
 	}
+	
+	//Test for alt cases
+	@Test
+	public void testExtra() {
+		LCA tree = new LCA();
+		tree.root = new Node(0);
+		tree.root.left = new Node(1);
+		tree.findLCA(50, -9);
+		tree.findLCA(-1, 20);
+		tree.findLCA(-100, -100);
+		tree.findLCA(0, 0);
+		tree.findLCA(9, -20);
+		assertNotEquals(null, tree.findLCA(0,1)); 
+		
+		
+	}
 
 	// Test Graph creation
 	//
@@ -165,6 +183,9 @@ class LCATest {
 	@Test
 	public void rootTest() {
 		LCA tree = new LCA();
+		int n = 0;
+		List<Integer> path = null;
+		tree.findPath(null, n, path);
 		assertEquals(tree.root, null);
 	}
 
