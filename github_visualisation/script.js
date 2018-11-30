@@ -1,8 +1,18 @@
 window.onload = function(){
 var densityCanvas = document.getElementById("myChart");
-Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontFamily = "Lato"; 
 Chart.defaults.global.defaultFontSize = 18;
-
+var dataToComputeAve = [16, 3, 3, 2, 9, 8, 6, 31, 2, 30];
+var len = dataToComputeAve.length;
+var diff = 0;
+var average = 0;
+    for(i = 0 ; i < len ; i++){
+        average += dataToComputeAve[i]/len;
+        diff = 11- dataToComputeAve[i];
+        if(diff < 0){
+            diff += diff+diff;
+        }
+    }
 var chartOptions = {
   scales: {
     yAxes: [{
@@ -34,10 +44,35 @@ var chartOptions = {
   }
    
 };
+    Chart.pluginService.register({
+    afterDraw: function(chart) {
+        if (typeof chart.config.options.lineAt != 'undefined') {
+        	var lineAt = chart.config.options.lineAt;
+            var ctxPlugin = chart.chart.ctx;
+            var xAxe = chart.scales[chart.config.options.scales.xAxes[0].id];
+            var yAxe = chart.scales[chart.config.options.scales.yAxes[0].id];
+           	
+            // I'm not good at maths
+            // So I couldn't find a way to make it work ...
+            // ... without having the `min` property set to 0
+            if(yAxe.min != 0) return;
+            
+            ctxPlugin.strokeStyle = "red";
+        	ctxPlugin.beginPath();
+            lineAt = (lineAt - yAxe.min) * (100 / yAxe.max);
+            lineAt = (100 - lineAt) / 100 * (yAxe.height) + yAxe.top;
+            ctxPlugin.moveTo(xAxe.left, lineAt);
+            ctxPlugin.lineTo(xAxe.right, lineAt);
+            ctxPlugin.stroke();
+        }
+    }
+});
 
 var dataStuff = { 
       label: 'Commits',
       data: [16, 3, 3, 2, 9, 8, 6, 31, 2, 30],
+      
+    
       backgroundColor: [
         'rgba(0, 99, 132, 0.6)',
         'rgba(30, 99, 132, 0.6)',
@@ -75,9 +110,16 @@ var dataStuff = {
         },
         options:{
             maintainAspectRatio : false,
-            chartOptions
+            lineAt: average,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0
+                }
+            }]
         }
-        });
+    }
+    });
 
 
 //Doughnut chart
@@ -123,7 +165,7 @@ var myDoughnutChart = new Chart(ctx,{
         },
         options:{
             maintainAspectRatio : false
+             
         }
-    
         });
 }
