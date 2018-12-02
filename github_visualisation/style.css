@@ -1,0 +1,35 @@
+h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 40px;
+  padding: 80px 50px;
+  text-align: center;
+  text-transform: uppercase;
+    text-rendering: optimizeLegibility;}
+h2 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h2, h2 {
+  width: 26%;
+  height: 60px;
+  margin: 1000;
+  padding: 1000;
+  display: inline;
+}
+
+.leftText {
+    float:left;
+    width:50%;
+    text-indent: 5em each-line;
+    text-decoration: underline;
+}
+.rightText {
+    float:right
+    width:50%;
+    text-decoration: underline;
+}
+.leftText, .rightText{display: inline!important;}

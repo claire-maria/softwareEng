@@ -13,6 +13,8 @@ var average = 0;
             diff += diff+diff;
         }
     }
+    
+
 var chartOptions = {
   scales: {
     yAxes: [{
@@ -51,10 +53,6 @@ var chartOptions = {
             var ctxPlugin = chart.chart.ctx;
             var xAxe = chart.scales[chart.config.options.scales.xAxes[0].id];
             var yAxe = chart.scales[chart.config.options.scales.yAxes[0].id];
-           	
-            // I'm not good at maths
-            // So I couldn't find a way to make it work ...
-            // ... without having the `min` property set to 0
             if(yAxe.min != 0) return;
             
             ctxPlugin.strokeStyle = "red";
@@ -64,12 +62,13 @@ var chartOptions = {
             ctxPlugin.moveTo(xAxe.left, lineAt);
             ctxPlugin.lineTo(xAxe.right, lineAt);
             ctxPlugin.stroke();
+            
         }
     }
 });
 
 var dataStuff = { 
-      label: 'Commits',
+      label: 'Commits against Average',
       data: [16, 3, 3, 2, 9, 8, 6, 31, 2, 30],
       
     
@@ -115,6 +114,7 @@ var dataStuff = {
                     yAxes: [{
                         ticks: {
                             min: 0
+                           
                 }
             }]
         }
@@ -126,7 +126,7 @@ var dataStuff = {
 
 var dataStuffD = { 
       label: 'Commits',
-      data: [16, 3, 3, 2, 9, 8, 6, 31, 2, 30],
+      data: [14.6,2.73,2.73,1.82,8.2,7.25,5.45,28.2,1.82,27.2],
       backgroundColor: [
         '#170337',
         '#581845',
@@ -164,8 +164,24 @@ var myDoughnutChart = new Chart(ctx,{
             datasets: [dataStuffD],
         },
         options:{
-            maintainAspectRatio : false
-             
+            maintainAspectRatio : false,
+             tooltips: {
+                mode: 'label',
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return data['datasets'][0]['data'][tooltipItem['index']] + '%';
+                    }
+                }
+            },
+          scale: {
+            ticks: {
+                beginAtZero: true
+            }
+        },
+        title: {
+        display: true,
+        text: 'Percentage of commits per repo'
+    }
         }
         });
 }

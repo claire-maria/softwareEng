@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Data Visualisation with Github API</title>
+    <link href="style.css" rel="stylesheet" type="text/css" >
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+     
 </head>
 <body>
+    <h1>Data Visualisation with Github API - CS3012</h1>
+    
+  <div style="clear: both">
+    <h2 style="float: left">Bar Chart</h2>
+    <h2 style="float: right">Doughnut Chart</h2>
+    </div>
+<hr />
+    
+    <p class = leftText>Bar chart to show repo commits against the average for a user. Red line shows average commits.</p>
+    <p class = rightText style = 'float: right'>Doughnut Chart to display the percentage of commits per repo. </p>
+   
     <div class="chart-container">
-    <canvas id="myChart" width="500" height="400"></canvas>
+    <canvas id="myChart" width="300" height="300"></canvas>
   </div>
 <div class="chart-container">
     <canvas id="myDoughnutChart" width="500" height="500"></canvas>
